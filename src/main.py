@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 
 import argparse
-import urllib.request
 import requests
+from bs4 import BeautifulSoup
+
+from pdf import PDF
 
 def main():
     parser = argparse.ArgumentParser()
@@ -11,8 +13,8 @@ def main():
     args = parser.parse_args()
     
     try:
-        url = urllib.request.urlopen(args.URI)
-    except urllib.error.URLError:
+        url = requests.get(args.URI)
+    except requests.exceptions.SSLError:
         print("Invalid website provided")
         return
     except ValueError:
