@@ -13,15 +13,19 @@ def main():
     args = parser.parse_args()
     
     try:
-        url = requests.get(args.URI)
+        response = requests.get(args.URI)
     except requests.exceptions.SSLError:
         print("Invalid website provided")
         return
     except ValueError:
         print("Provide the URL Type (ex: HTTP://)")
-        return    
+        return
 
-    print(url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+
+    for pdfLinks in soup.find_all('a', href=True):
+        if pdfLinks['href'].lower().endswith(".pdf"):
+            print(pdfLinks['href'])
     
     return
 
