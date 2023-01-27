@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 
 import argparse
-from bs4 import BeautifulSoup
 
-from funcs import request
+from funcs import request, findPDF
 from pdf import PDF
 
 def main():
@@ -13,12 +12,9 @@ def main():
     args = parser.parse_args()
     
     response = request(args.URI)
+    pdfs = findPDF(response)
     
-    soup = BeautifulSoup(response.content, 'html.parser')
-
-    for pdfLinks in soup.find_all('a', href=True):
-        if pdfLinks['href'].lower().endswith(".pdf"):
-            print(pdfLinks['href'])
+    print(pdfs)
     
     return
 
