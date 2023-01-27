@@ -18,4 +18,8 @@ class PDF:
     @finalURI.setter
     def finalURI(self, u) -> None:
         self._finalURI = u  
+        
+    def __str__(self) -> str:
+        print("Final URI:", self.finalURI, "\n")
+        print("Content Length:", self.bytes, "\n")
     

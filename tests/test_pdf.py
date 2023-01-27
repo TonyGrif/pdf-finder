@@ -22,3 +22,12 @@ class TestPDF:
         # Notice https instead of http
         assert result.finalURI == "https://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
         assert result.finalURI != "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
+        
+    def test_str(self):
+        testURI = "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
+        response = request(testURI)
+        result = PDF(response.headers['content-length'], response.url)
+        stringResult = str(result.__str__)
+        
+        assert stringResult.find("994153")
+        assert stringResult.find("http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf")
