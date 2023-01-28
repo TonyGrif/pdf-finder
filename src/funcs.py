@@ -2,7 +2,7 @@ import requests
 import sys
 from bs4 import BeautifulSoup
 
-from pdf import PDF
+from pdf import PdfFile
 
 def request(uriArg):
     try:
@@ -28,7 +28,7 @@ def findPDF(response):
         response = request(pdf)
         
         if(response.headers['content-type'] == "application/pdf"):
-            pdfs.append(PDF(response.headers['content-length'], pdf, response.url))
+            pdfs.append(PdfFile(response.headers['content-length'], pdf, response.url))
         else:
             continue
     

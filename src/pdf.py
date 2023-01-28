@@ -1,4 +1,4 @@
-class PDF:
+class PdfFile:
     def __init__(self, b, s, u) -> None:
         self._bytes = b
         self._startURL = s
