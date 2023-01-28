@@ -1,6 +1,7 @@
 class PDF:
-    def __init__(self, b, u) -> None:
+    def __init__(self, b, s, u) -> None:
         self._bytes = b
+        self._startURL = s
         self._finalURI = u
     
     @property
@@ -12,6 +13,14 @@ class PDF:
         self._bytes = b
         
     @property
+    def startURL(self) -> str:
+        return self._startURL
+    
+    @startURL.setter
+    def startURL(self, s) -> None:
+        self._startURL = s
+        
+    @property
     def finalURI(self) -> str:
         return self._finalURI
     
@@ -20,6 +29,5 @@ class PDF:
         self._finalURI = u  
         
     def __str__(self) -> str:
-        print("Final URI:", self.finalURI, "\n")
-        print("Content Length:", self.bytes, "\n")
+        return "URI: " + str(self.startURL) + "\n" + "Final URI: " + str(self.finalURI) + "\n" + "Content Length: " + str(self.bytes) + " Bytes" + "\n"
     

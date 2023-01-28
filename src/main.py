@@ -3,7 +3,6 @@
 import argparse
 
 from funcs import request, findPDF
-from pdf import PDF
 
 def main():
     parser = argparse.ArgumentParser()
@@ -14,7 +13,8 @@ def main():
     response = request(args.URI)
     pdfs = findPDF(response)
     
-    print(pdfs)
+    for p in pdfs:
+        print(p)
     
     return
 
