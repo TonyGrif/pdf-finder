@@ -1,6 +1,6 @@
 import pytest
 
-from src.funcs import request, findPDF
+from ..src.funcs import request, findPDF
 
 class TestFunctions:
     def test_request(self):
