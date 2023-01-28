@@ -1,7 +1,7 @@
 import pytest
 
-from ..src.pdf import PDF
-from ..src.funcs import request
+from src.pdf import PDF
+from src.funcs import request
 
 class TestPDF:
     def test_bytes(self):
