@@ -13,5 +13,5 @@ pip install -r requirements.txt
 
 Then follow the syntax below
 ```
-./src/main.py [URI]
+./pdf-finder/main.py [URI]
 ```
