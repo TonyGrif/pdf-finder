@@ -8,7 +8,7 @@ class TestPDF:
         testURI = "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
         response = request(testURI)
         result = PdfFile(response.headers['content-length'], testURI, response.url)
-        assert PdfFile(result.bytes) == 994153
+        assert int(result.bytes) == 994153
         
         testURI = "http://www.cs.odu.edu/~mln/pubs/ipres-2018/ipres-2018-atkins-news-similarity.pdf"
         response = request(testURI)

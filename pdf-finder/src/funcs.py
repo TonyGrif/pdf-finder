@@ -2,7 +2,7 @@ import requests
 import sys
 from bs4 import BeautifulSoup
 
-from pdf import PdfFile
+from .pdf import PdfFile
 
 def request(uriArg):
     try:

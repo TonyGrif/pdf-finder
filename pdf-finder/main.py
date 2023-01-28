@@ -2,7 +2,7 @@
 
 import argparse
 
-from funcs import request, findPDF
+from src.funcs import request, findPDF
 
 def main():
     parser = argparse.ArgumentParser()
