@@ -11,7 +11,16 @@ def main():
     args = parser.parse_args()
     
     response = request(args.URI)
+    
+    if response is None:
+        print("No response returned")
+        return
+    
     pdfs = findPDF(response)
+    
+    if len(pdfs) == 0:
+        print("No pdfs found")
+        return
     
     for p in pdfs:
         print(p)

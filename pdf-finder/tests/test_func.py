@@ -15,11 +15,10 @@ class TestFunctions:
         assert goodResponse.headers['content-length'] == "994153"        
         
         noValue = "www.cs.odu.edu/~mweigle/courses/cs532/pdfs.html"
-        with pytest.raises(SystemExit):
-            bad = request(noValue)
+        self.assertRaises(request(noValue))
             
         sslErr = "https://www.goolge.com"
-        with pytest.raises(SystemExit):
+        with pytest.raises(Exception):
             bad = request(sslErr)
             
     def test_PDFs(self):

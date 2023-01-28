@@ -1,5 +1,4 @@
 import requests
-import sys
 from bs4 import BeautifulSoup
 
 from .pdf import PdfFile
@@ -8,11 +7,11 @@ def request(uriArg):
     try:
         response = requests.get(uriArg)
     except requests.exceptions.SSLError:
-        print("Invalid website provided")
-        sys.exit()
+        return
     except ValueError:
-        print("Provide the URL Type (ex: HTTP://)")
-        sys.exit()
+        return
+    except ConnectionError:
+        return
     return response
 
 def findPDF(response):
@@ -20,16 +19,20 @@ def findPDF(response):
 
     links = []
     for pdfLinks in soup.find_all('a', href=True):
-        links.append(pdfLinks['href'])
+        if pdfLinks['href'].lower().endswith(".pdf"):
+            links.append(pdfLinks['href'])
 
+    links = list(set(links))
     pdfs = []
-    # Could also be done in the above for loop
     for pdf in links:
-        response = request(pdf)
-        
-        if(response.headers['content-type'] == "application/pdf"):
-            pdfs.append(PdfFile(response.headers['content-length'], pdf, response.url))
-        else:
+        try:
+            response = request(pdf)
+        except Exception:
             continue
+        
+        if response is None:
+            continue     
+        
+        pdfs.append(PdfFile(response.headers['content-length'], pdf, response.url))
     
     return pdfs
