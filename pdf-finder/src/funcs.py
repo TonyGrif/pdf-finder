@@ -3,7 +3,15 @@ from bs4 import BeautifulSoup
 
 from .pdf import PdfFile
 
-def request(uriArg):
+def request(uriArg) -> requests.Response:
+    """Function to request a HTTP response from a URI.
+
+    Args:
+        uriArg (str): A string representation of the URI requesting.
+
+    Returns:
+        Response : An HTTP response.
+    """
     try:
         response = requests.get(uriArg)
     except requests.exceptions.SSLError:
@@ -15,6 +23,14 @@ def request(uriArg):
     return response
 
 def findPDF(response):
+    """Locate the PDFs in a HTTP response. Create a new PDF object with the information aquired.
+
+    Args:
+        response (requests.Response): HTTP request created by the requests library.
+
+    Returns:
+        Array[PDF]: An array of PDF objects found within this response.
+    """
     if response is None:
         pdfs = []
         return pdfs

@@ -1,4 +1,17 @@
 class PdfFile:
+    """PDF object responsible for storing the starting & final URLs and the number of bytes the PDF is.
+    
+        ...
+        Attributes
+        ----------
+        bytes : int
+            Number of bytes the document is.
+        startURL : str
+            The starting URL for this document.
+        finalURI : str
+            The final URI for this document post any redirects.    
+    """
+    
     def __init__(self, b, s, u) -> None:
         self._bytes = b
         self._startURL = s
