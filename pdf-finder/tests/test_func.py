@@ -15,11 +15,12 @@ class TestFunctions:
         assert goodResponse.headers['content-length'] == "994153"        
         
         noValue = "www.cs.odu.edu/~mweigle/courses/cs532/pdfs.html"
-        self.assertRaises(request(noValue))
-            
+        nullVal = request(noValue)
+        assert nullVal is None
+                        
         sslErr = "https://www.goolge.com"
-        with pytest.raises(Exception):
-            bad = request(sslErr)
+        bad = request(sslErr)
+        assert bad is None
             
     def test_PDFs(self):
         testUrl = "https://www.cs.odu.edu/~mweigle/courses/cs532/pdfs.html"
@@ -31,4 +32,8 @@ class TestFunctions:
         response = request(testUrl)
         links = findPDF(response)
         assert len(links) == 0
-
+        
+        testUrl = "https:://www.odu.edu"
+        response = request(testUrl)
+        links = findPDF(response)
+        assert len(links) == 0

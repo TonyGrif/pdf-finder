@@ -15,6 +15,10 @@ def request(uriArg):
     return response
 
 def findPDF(response):
+    if response is None:
+        pdfs = []
+        return pdfs
+    
     soup = BeautifulSoup(response.content, 'html.parser')
 
     links = []

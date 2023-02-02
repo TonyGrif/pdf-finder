@@ -19,7 +19,7 @@ class TestPDF:
         testURI = "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
         response = request(testURI)
         result = PdfFile(response.headers['content-length'], testURI, response.url)
-        # Notice https instead of http
+        # Notice http instead of https
         assert result.startURL == "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
         assert result.startURL != "https://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
         
