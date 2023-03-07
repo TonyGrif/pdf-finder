@@ -13,7 +13,7 @@ def request(uriArg) -> requests.Response:
         Response : An HTTP response.
     """
     try:
-        response = requests.get(uriArg)
+        response = requests.get(uriArg, timeout=2.50)
     except requests.exceptions.SSLError:
         return
     except ValueError:
