@@ -23,7 +23,7 @@ def request(uriArg: str) -> requests.Response:
         return
     return response
 
-def findPDF(response: requests.Response) -> list[PDF]:
+def findPDF(response: requests.Response) -> list[PdfFile]:
     """
     Locate the PDFs in a HTTP response and create a new PDF object with the information aquired.
 
@@ -31,7 +31,7 @@ def findPDF(response: requests.Response) -> list[PDF]:
         response (requests.Response): HTTP request created by the requests library.
 
     Returns:
-        pdfs (Array[PDF]): An array of PDF objects found within this response.
+        pdfs (Array[PdfFile]): An array of PDF objects found within this response.
     """
     if response is None:
         pdfs = []
