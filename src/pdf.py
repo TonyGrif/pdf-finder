@@ -12,7 +12,7 @@ class PdfFile:
             The final URI for this document post any redirects.    
     """
     
-    def __init__(self, b, s, u) -> None:
+    def __init__(self, b: int, s: str, u: str) -> None:
         self._bytes = b
         self._startURL = s
         self._finalURI = u
@@ -22,7 +22,7 @@ class PdfFile:
         return self._bytes
     
     @bytes.setter
-    def bytes(self, b) -> None:
+    def bytes(self, b: int) -> None:
         self._bytes = b
         
     @property
@@ -30,7 +30,7 @@ class PdfFile:
         return self._startURL
     
     @startURL.setter
-    def startURL(self, s) -> None:
+    def startURL(self, s: str) -> None:
         self._startURL = s
         
     @property
@@ -38,7 +38,7 @@ class PdfFile:
         return self._finalURI
     
     @finalURI.setter
-    def finalURI(self, u) -> None:
+    def finalURI(self, u: str) -> None:
         self._finalURI = u  
         
     def __str__(self) -> str:

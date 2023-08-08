@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 
 from pdf import PdfFile
 
-def request(uriArg) -> requests.Response:
+def request(uriArg: str) -> requests.Response:
     """Function to request a HTTP response from a URI.
 
     Args:
@@ -22,7 +22,7 @@ def request(uriArg) -> requests.Response:
         return
     return response
 
-def findPDF(response):
+def findPDF(response: requests.Response):
     """Locate the PDFs in a HTTP response. Create a new PDF object with the information aquired.
 
     Args:
