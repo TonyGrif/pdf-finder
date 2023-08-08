@@ -31,10 +31,12 @@ def findPDF(response: requests.Response) -> list[PdfFile]:
     information aquired.
 
     Args:
-        response (requests.Response): HTTP request created by the requests library.
+        response (requests.Response):
+            HTTP request created by the requests library.
 
     Returns:
-        pdfs (Array[PdfFile]): An array of PDF objects found within this response.
+        pdfs (Array[PdfFile]):
+            An array of PDF objects found within this response.
     """
     if response is None:
         pdfs = []
@@ -58,6 +60,9 @@ def findPDF(response: requests.Response) -> list[PdfFile]:
         if response is None:
             continue
 
-        pdfs.append(PdfFile(response.headers["content-length"], pdf, response.url))
+        pdfs.append(PdfFile(
+            response.headers["content-length"],
+            pdf,
+            response.url))
 
     return pdfs
