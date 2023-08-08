@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-from .pdf import PdfFile
+from pdf import PdfFile
 
 def request(uriArg) -> requests.Response:
     """Function to request a HTTP response from a URI.
