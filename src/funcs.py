@@ -4,13 +4,14 @@ from bs4 import BeautifulSoup
 from pdf import PdfFile
 
 def request(uriArg: str) -> requests.Response:
-    """Function to request a HTTP response from a URI.
+    """
+    Function to request a HTTP response from a URI.
 
     Args:
         uriArg (str): A string representation of the URI requesting.
 
     Returns:
-        Response : An HTTP response.
+        Response (requests.Response) : An HTTP response.
     """
     try:
         response = requests.get(uriArg, timeout=2.50)
@@ -22,14 +23,15 @@ def request(uriArg: str) -> requests.Response:
         return
     return response
 
-def findPDF(response: requests.Response):
-    """Locate the PDFs in a HTTP response. Create a new PDF object with the information aquired.
+def findPDF(response: requests.Response) -> list[PDF]:
+    """
+    Locate the PDFs in a HTTP response and create a new PDF object with the information aquired.
 
     Args:
         response (requests.Response): HTTP request created by the requests library.
 
     Returns:
-        Array[PDF]: An array of PDF objects found within this response.
+        pdfs (Array[PDF]): An array of PDF objects found within this response.
     """
     if response is None:
         pdfs = []
