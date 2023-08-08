@@ -1,6 +1,7 @@
 class PdfFile:
     """
-    PDF object responsible for storing the starting & final URLs and the number of bytes the PDF is.
+    PDF object responsible for storing the starting & final URLs 
+    and the number of bytes the PDF is.
 
     Attributes:
         bytes (int): Number of bytes the document is.
