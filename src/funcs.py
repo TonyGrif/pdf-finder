@@ -16,12 +16,8 @@ def request(uriArg: str) -> requests.Response:
     """
     try:
         response = requests.get(uriArg, timeout=2.50)
-    except requests.exceptions.SSLError:
-        return
-    except ValueError:
-        return
-    except ConnectionError:
-        return
+    except:
+        return None
     return response
 
 
