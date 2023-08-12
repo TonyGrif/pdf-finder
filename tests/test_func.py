@@ -14,7 +14,6 @@ def badUrl():
             "https://www.goolge.com"]
 
 
-
 class TestFunctions:
     def test_request(self, goodUrl, badUrl):
         goodResponse = request(goodUrl[0])
