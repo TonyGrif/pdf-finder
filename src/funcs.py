@@ -56,9 +56,6 @@ def findPDF(response: requests.Response) -> list:
         if response is None:
             continue
 
-        pdfs.append(PdfFile(
-            response.headers["content-length"],
-            pdf,
-            response.url))
+        pdfs.append(PdfFile(response.headers["content-length"], pdf, response.url))
 
     return pdfs
