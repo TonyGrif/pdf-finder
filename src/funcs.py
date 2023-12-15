@@ -21,7 +21,7 @@ def request(uriArg: str) -> requests.Response:
     return response
 
 
-def findPDF(response: requests.Response) -> list[PdfFile]:
+def findPDF(response: requests.Response) -> list:
     """
     Locate the PDFs in a HTTP response and create a new PDF object with the
     information aquired.
