@@ -1,9 +1,8 @@
 # PDF-Finder
-A Python program to locate links to PDFs found within a webpage from the command line
+A Python program to locate links to PDFs found within a webpage from the command line.
 
 ## Requirements
-    * Python 3.X
-    * Pip
+* [Python 3.8+](https://www.python.org/)
 
 ## Usage
 Ensure required packages are available first
