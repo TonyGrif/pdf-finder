@@ -2,16 +2,18 @@ import pytest
 
 from funcs import request, findPDF
 
+
 @pytest.fixture
 def goodUrl():
-    return ["https://www.cs.odu.edu/~mweigle/courses/cs532/pdfs.html",
-            "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"] 
+    return [
+        "https://www.cs.odu.edu/~mweigle/courses/cs532/pdfs.html",
+        "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf",
+    ]
 
 
 @pytest.fixture
 def badUrl():
-    return ["www.cs.odu.edu/~mweigle/courses/cs532/pdfs.html",
-            "https://www.goolge.com"]
+    return ["www.cs.odu.edu/~mweigle/courses/cs532/pdfs.html", "https://www.goolge.com"]
 
 
 class TestFunctions:
