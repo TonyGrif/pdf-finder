@@ -3,6 +3,7 @@ A Python program to locate links to PDFs found within a webpage from the command
 
 ## Requirements
 * [Python 3.8+](https://www.python.org/)
+* [BeautifulSoup4](https://beautiful-soup-4.readthedocs.io/en/latest/)
 
 ## Usage
 Ensure required packages are available first

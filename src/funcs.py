@@ -4,7 +4,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-from pdf import PdfFile
+from src.pdf import PdfFile
 
 
 def request(uri_arg: str) -> requests.Response:
