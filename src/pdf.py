@@ -91,10 +91,10 @@ class PdfFile:
         """
         return (
             "URI: "
-            + str(self.startURL)
+            + str(self.start_url)
             + "\n"
             + "Final URI: "
-            + str(self.finalURI)
+            + str(self.final_uri)
             + "\n"
             + "Content Length: "
             + str(self.bytes)
