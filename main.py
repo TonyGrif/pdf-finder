@@ -40,6 +40,7 @@ def main():
         return
 
     pdfs = find_pdf(response)
+    logging.debug(f"{len(pdfs)} PDFs found")
 
     if len(pdfs) == 0:
         print("No pdfs found")

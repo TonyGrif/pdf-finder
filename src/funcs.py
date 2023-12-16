@@ -1,6 +1,7 @@
 """This module contains functions for the pdf finder application.
 """
 
+import logging
 import requests
 from bs4 import BeautifulSoup
 
@@ -15,12 +16,15 @@ def request(uri_arg: str) -> requests.Response:
         uri_arg (str): string representation of the URI requesting.
 
     Returns:
-        response (requests.Response) : HTTP response.
+        response (requests.Response): HTTP response.
     """
     try:
+        logging.debug(f"Request on {uri_arg}")
         response = requests.get(uri_arg, timeout=2.50)
-    except Exception:
+    except Exception as e:
+        logging.debug(f"{e} exception caught on {uri_arg}")
         return None
+    logging.debug("Response recieved")
     return response
 
 
