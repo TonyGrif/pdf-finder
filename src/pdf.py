@@ -4,83 +4,83 @@ class PdfFile:
     and the number of bytes the PDF is.
 
     Attributes:
-        bytes (int): Number of bytes the document is.
-        startURL (str): The starting URL for this document.
-        finalURI (str): The final URI for this document post any redirects.
+        bytes (int): number of bytes the document is.
+        start_url (str): starting URL for this document.
+        final_uri (str): final URI for this document post any redirects.
     """
 
-    def __init__(self, b: int, s: str, u: str) -> None:
+    def __init__(self, byte: int, s_url: str, f_uri: str) -> None:
         """
         The constructor for the PDF class.
 
         Parameters:
-            b (int): The number of bytes.
-            s (str): The starting URL string.
-            u (str): The final URL string.
+            bytest (int): number of bytes.
+            s_url (str): starting URL string.
+            f_url (str): final URL string.
         """
-        self._bytes = b
-        self._startURL = s
-        self._finalURI = u
+        self.bytes = byte
+        self.start_url = s_url
+        self.final_uri = f_uri
 
     @property
     def bytes(self) -> int:
         """
-        Get the number of bytes this PDF is.
+        Return the number of bytes.
 
         Returns:
-            bytes (int): The number of bytes.
+            bytes (int): number of bytes.
         """
         return self._bytes
 
     @bytes.setter
-    def bytes(self, b: int) -> None:
+    def bytes(self, byte: int) -> None:
         """
-        Set the number of bytes this PDF is.
+        Set the number of bytes for this PDF.
 
         Parameters:
-            b (int): The number of bytes.
+            b (int): the number of bytes.
         """
-        self._bytes = b
+        self._bytes = byte
 
     @property
-    def startURL(self) -> str:
+    def start_url(self) -> str:
         """
-        Get the starting URL of this PDF.
+        Return the starting URL.
 
         Returns:
-            startURL (str): The starting URL.
+            start_url (str): the starting URL.
         """
-        return self._startURL
+        return self._start_url
 
-    @startURL.setter
-    def startURL(self, s: str) -> None:
+    @start_url.setter
+    def start_url(self, s_url: str) -> None:
         """
         Set the starting URL of this PDF.
 
         Parameters:
-            s (str): The starting URL.
+            s_url (str): the starting URL.
         """
-        self._startURL = s
+        self._start_url = s_url
 
     @property
-    def finalURI(self) -> str:
+    def final_uri(self) -> str:
         """
-        Get the final URI of this PDF.
+        Return the final URI of this PDF.
 
         Return:
-            finalURI (str): The final URI.
+            final_uri (str): the final URI.
         """
         return self._finalURI
 
-    @finalURI.setter
-    def finalURI(self, u: str) -> None:
+    @final_uri.setter
+    def final_uri(self, f_uri: str) -> None:
         """
         Set the final URI.
 
         Parameters:
-            u (str): The final URI.
+            f_uri (str): the final URI.
         """
-        self._finalURI = u
+        self._finalURI = f_uri
 
     def __str__(self) -> str:
         """

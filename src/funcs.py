@@ -1,27 +1,30 @@
+"""This module contains functions for the pdf finder application
+"""
+
 import requests
 from bs4 import BeautifulSoup
 
 from pdf import PdfFile
 
 
-def request(uriArg: str) -> requests.Response:
+def request(uri_arg: str) -> requests.Response:
     """
     Function to request a HTTP response from a URI.
 
     Args:
-        uriArg (str): A string representation of the URI requesting.
+        uri_arg (str): string representation of the URI requesting.
 
     Returns:
-        Response (requests.Response) : An HTTP response.
+        response (requests.Response) : HTTP response.
     """
     try:
-        response = requests.get(uriArg, timeout=2.50)
-    except:
+        response = requests.get(uri_arg, timeout=2.50)
+    except Exception:
         return None
     return response
 
 
-def findPDF(response: requests.Response) -> list:
+def find_pdf(response: requests.Response) -> list:
     """
     Locate the PDFs in a HTTP response and create a new PDF object with the
     information aquired.
@@ -41,9 +44,9 @@ def findPDF(response: requests.Response) -> list:
     soup = BeautifulSoup(response.content, "html.parser")
 
     links = []
-    for pdfLinks in soup.find_all("a", href=True):
-        if pdfLinks["href"].lower().endswith(".pdf"):
-            links.append(pdfLinks["href"])
+    for pdf_links in soup.find_all("a", href=True):
+        if pdf_links["href"].lower().endswith(".pdf"):
+            links.append(pdf_links["href"])
 
     links = list(set(links))
     pdfs = []
