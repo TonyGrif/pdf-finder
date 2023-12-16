@@ -1,4 +1,4 @@
-"""This module contains functions for the pdf finder application
+"""This module contains functions for the pdf finder application.
 """
 
 import requests
