@@ -9,6 +9,7 @@ This file can be run as `./main.py [-h] URI`.
 """
 
 import argparse
+import logging
 
 from src.funcs import request, find_pdf
 
@@ -22,7 +23,15 @@ def main():
     )
 
     parser.add_argument("uri", type=str, help="The URI to be searched.")
+    parser.add_argument(
+        "--debug", action="store_true", help="Enable DEBUG console output logs."
+    )
+
     args = parser.parse_args()
+    if args.debug == True:
+        logging.basicConfig(level=logging.DEBUG)
+
+    logging.debug(f"URI Provided: {args.uri}")
 
     response = request(args.uri)
 
