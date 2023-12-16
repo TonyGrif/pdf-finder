@@ -4,42 +4,44 @@ from funcs import request, find_pdf
 
 
 @pytest.fixture
-def good_url():
-    return [
+def good_response():
+    good_url = [
         "https://www.cs.odu.edu/~mweigle/courses/cs532/pdfs.html",
         "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf",
     ]
+    return (request(good_url[0]), request(good_url[1]))
 
 
 @pytest.fixture
-def bad_url():
-    return ["www.cs.odu.edu/~mweigle/courses/cs532/pdfs.html", "https://www.goolge.com"]
+def bad_response():
+    bad_url = [
+        "www.cs.odu.edu/~mweigle/courses/cs532/pdfs.html",
+        "https://www.goolge.com",
+    ]
+    return (request(bad_url[0]), request(bad_url[1]))
 
 
 class TestFunctions:
-    def test_request(self, good_url, bad_url):
-        assert request(good_url[0]).status_code == 200
+    def test_request(self, good_response, bad_response):
+        assert good_response[0].status_code == 200
 
-        response = request(good_url[1])
-        assert response.status_code == 200
-        assert response.headers["content-type"] == "application/pdf"
-        assert response.headers["content-length"] == "994153"
+        assert good_response[1].status_code == 200
+        assert good_response[1].headers["content-type"] == "application/pdf"
+        assert good_response[1].headers["content-length"] == "994153"
 
         # No value check
-        assert request(bad_url[0]) is None
+        assert bad_response[0] is None
         # SSL error check
-        assert request(bad_url[1]) is None
+        assert bad_response[1] is None
 
-    def test_PDFs(self, good_url, bad_url):
-        response = request(good_url[0])
-        links = find_pdf(response)
+    def test_pdf(self, good_response, bad_response):
+        links = find_pdf(good_response[0])
         assert len(links) == 8
 
-        response = request(bad_url[0])
-        links = find_pdf(response)
+        links = find_pdf(bad_response[0])
         assert len(links) == 0
 
-        test_url = "https://www.cs.odu.edu/~mweigle/"
-        response = request(test_url)
+        url = "https://www.cs.odu.edu/~mweigle/"
+        response = request(url)
         links = find_pdf(response)
         assert len(links) == 0
