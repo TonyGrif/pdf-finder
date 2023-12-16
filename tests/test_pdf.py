@@ -6,54 +6,54 @@ from funcs import request
 
 class TestPDF:
     def test_bytes(self):
-        testURI = "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
-        response = request(testURI)
-        result = PdfFile(response.headers["content-length"], testURI, response.url)
+        test_uri = "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
+        response = request(test_uri)
+        result = PdfFile(response.headers["content-length"], test_uri, response.url)
         assert int(result.bytes) == 994153
 
-        testURI = "http://www.cs.odu.edu/~mln/pubs/ipres-2018/ipres-2018-atkins-news-similarity.pdf"
-        response = request(testURI)
-        result = PdfFile(response.headers["content-length"], testURI, response.url)
+        test_uri = "http://www.cs.odu.edu/~mln/pubs/ipres-2018/ipres-2018-atkins-news-similarity.pdf"
+        response = request(test_uri)
+        result = PdfFile(response.headers["content-length"], test_uri, response.url)
         assert int(result.bytes) == 18995885
 
     def test_startURL(self):
-        testURI = "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
-        response = request(testURI)
-        result = PdfFile(response.headers["content-length"], testURI, response.url)
+        test_uri = "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
+        response = request(test_uri)
+        result = PdfFile(response.headers["content-length"], test_uri, response.url)
         # Notice http instead of https
         assert (
-            result.startURL
+            result.start_url
             == "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
         )
         assert (
-            result.startURL
+            result.start_url
             != "https://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
         )
 
     def test_finalURI(self):
-        testURI = "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
-        response = request(testURI)
-        result = PdfFile(response.headers["content-length"], testURI, response.url)
+        test_uri = "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
+        response = request(test_uri)
+        result = PdfFile(response.headers["content-length"], test_uri, response.url)
         # Notice https instead of http
         assert (
-            result.finalURI
+            result.final_uri
             == "https://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
         )
         assert (
-            result.finalURI
+            result.final_uri
             != "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
         )
 
     def test_str(self):
-        testURI = "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
-        response = request(testURI)
-        result = PdfFile(response.headers["content-length"], testURI, response.url)
-        stringResult = str(result.__str__)
+        test_uri = "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
+        response = request(test_uri)
+        result = PdfFile(response.headers["content-length"], test_uri, response.url)
+        str_result = str(result.__str__)
 
-        assert stringResult.find("994153")
-        assert stringResult.find(
+        assert str_result.find("994153")
+        assert str_result.find(
             "https://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
         )
-        assert stringResult.find(
+        assert str_result.find(
             "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
         )
