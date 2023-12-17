@@ -1,3 +1,7 @@
+"""This module contains the PDF data class.
+"""
+
+
 class PdfFile:
     """
     PDF object responsible for storing the starting & final URLs
@@ -70,7 +74,7 @@ class PdfFile:
         Return:
             final_uri (str): the final URI.
         """
-        return self._finalURI
+        return self._final_uri
 
     @final_uri.setter
     def final_uri(self, f_uri: str) -> None:
@@ -80,7 +84,7 @@ class PdfFile:
         Parameters:
             f_uri (str): the final URI.
         """
-        self._finalURI = f_uri
+        self._final_uri = f_uri
 
     def __str__(self) -> str:
         """
