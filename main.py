@@ -28,22 +28,21 @@ def main():
     )
 
     args = parser.parse_args()
-    if args.debug == True:
+    if args.debug is True:
         logging.basicConfig(level=logging.DEBUG)
 
-    logging.debug(f"URI Provided: {args.uri}")
+    logging.debug("URI Provided: %s", args.uri)
 
     response = request(args.uri)
 
     if response is None:
-        print("No response returned")
+        logging.debug("No response returned")
         return
 
     pdfs = find_pdf(response)
-    logging.debug(f"{len(pdfs)} PDFs found")
+    logging.debug("%s PDFs found", len(pdfs))
 
     if len(pdfs) == 0:
-        print("No pdfs found")
         return
 
     for p in pdfs:

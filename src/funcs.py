@@ -19,12 +19,12 @@ def request(uri_arg: str) -> requests.Response:
         response (requests.Response): HTTP response.
     """
     try:
-        logging.debug(f"Request on {uri_arg}")
+        logging.debug("Request on %s", uri_arg)
         response = requests.get(uri_arg, timeout=2.50)
     except Exception as e:
-        logging.debug(f"{e} exception caught on {uri_arg}")
+        logging.debug("%s exception caught on %s", e, uri_arg)
         return None
-    logging.debug("Response recieved")
+    logging.debug("Response recieved from %s", uri_arg)
     return response
 
 
@@ -50,6 +50,7 @@ def find_pdf(response: requests.Response) -> list:
     links = []
     for pdf_links in soup.find_all("a", href=True):
         if pdf_links["href"].lower().endswith(".pdf"):
+            logging.debug("%s link added", pdf_links["href"])
             links.append(pdf_links["href"])
 
     links = list(set(links))
@@ -57,12 +58,15 @@ def find_pdf(response: requests.Response) -> list:
     for pdf in links:
         try:
             response = request(pdf)
-        except Exception:
+        except Exception as e:
+            logging.debug("%s exception caught on %s", e, pdf)
             continue
 
         if response is None:
+            logging.debug("%s returned no response", pdf)
             continue
 
         pdfs.append(PdfFile(response.headers["content-length"], pdf, response.url))
+        logging.debug("New pdf created with %s", response.url)
 
     return pdfs
