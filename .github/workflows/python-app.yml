@@ -1,4 +1,4 @@
-name: Python application
+name: Python Application
 
 on:
   push:
@@ -15,7 +15,6 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
         poetry-version: ["1.7.1"]
     
     runs-on: ${{ matrix.os }}
@@ -26,13 +25,20 @@ jobs:
     - name: Set up Python Versions
       uses: actions/setup-python@v4
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: |
+          3.8
+          3.9
+          3.10
+          3.11
+          3.12
 
     - name: Python Poetry Action
       uses: abatilo/actions-poetry@v3.0.0
       with:
         poetry-version: ${{ matrix.poetry-version }}
+      run: |
+        poetry install --only main,test
             
-    - name: Test with tox and pytest
+    - name: Test with Tox and PyTest
       run: |
         poetry run tox
