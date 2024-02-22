@@ -2,6 +2,7 @@
 """
 
 import logging
+from typing import List, Optional, Union
 
 import requests
 from bs4 import BeautifulSoup
@@ -9,15 +10,14 @@ from bs4 import BeautifulSoup
 from src.pdf import PdfFile
 
 
-def request(uri_arg: str) -> requests.Response:
-    """
-    Function to request a HTTP response from a URI.
+def request(uri_arg: str) -> Union[requests.Response, None]:
+    """Function to request a HTTP response from a URI.
 
     Args:
         uri_arg (str): string representation of the URI requesting.
 
     Returns:
-        response (requests.Response): HTTP response.
+        An HTTP response object if a response was returned, None otherwise.
     """
     try:
         logging.debug("Request on %s", uri_arg)
@@ -29,22 +29,18 @@ def request(uri_arg: str) -> requests.Response:
     return response
 
 
-def find_pdf(response: requests.Response) -> list:
-    """
-    Locate the PDFs in a HTTP response and create a new PDF object with the
+def find_pdf(response: requests.Response) -> List[PdfFile]:
+    """Locate the PDFs in a HTTP response and create a new PDF object with the
     information aquired.
 
     Args:
-        response (requests.Response):
-            HTTP request created by the requests library.
+        response (requests.Response): HTTP response object.
 
     Returns:
-        pdfs (Array[PdfFile]):
-            An array of PDF objects found within this response.
+        A collection of PDF objects found within the response.
     """
     if response is None:
-        pdfs = []
-        return pdfs
+        return []
 
     soup = BeautifulSoup(response.content, "html.parser")
 
@@ -58,16 +54,18 @@ def find_pdf(response: requests.Response) -> list:
     pdfs = []
     for pdf in links:
         try:
-            response = request(pdf)
+            pdf_response: Optional[requests.Response] = request(pdf)
         except Exception as e:
             logging.debug("%s exception caught on %s", e, pdf)
             continue
 
-        if response is None:
+        if pdf_response is None:
             logging.debug("%s returned no response", pdf)
             continue
 
-        pdfs.append(PdfFile(response.headers["content-length"], pdf, response.url))
-        logging.debug("New pdf created with %s", response.url)
+        pdfs.append(
+            PdfFile(int(pdf_response.headers["content-length"]), pdf, pdf_response.url)
+        )
+        logging.debug("New pdf created with %s", pdf_response.url)
 
     return pdfs
