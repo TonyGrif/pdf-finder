@@ -28,6 +28,7 @@ ruff = "^0.2.2"
 
 [tool.pytest.ini_options]
 pythonpath = "src"
+log_cli = "True"
 
 [build-system]
 requires = ["poetry-core"]
