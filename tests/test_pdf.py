@@ -6,7 +6,9 @@ from funcs import request
 
 @pytest.fixture
 def pdf():
-    test_uri = "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
+    test_uri = (
+        "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
+    )
     response = request(test_uri)
     return PdfFile(response.headers["content-length"], test_uri, response.url)
 

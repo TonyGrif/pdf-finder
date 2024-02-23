@@ -5,20 +5,20 @@ from funcs import request, find_pdf
 
 @pytest.fixture
 def good_response():
-    good_url = [
-        "https://www.cs.odu.edu/~mweigle/courses/cs532/pdfs.html",
-        "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf",
-    ]
-    return (request(good_url[0]), request(good_url[1]))
+    return (
+        request("https://www.cs.odu.edu/~mweigle/courses/cs532/pdfs.html"),
+        request(
+            "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
+        ),
+    )
 
 
 @pytest.fixture
 def bad_response():
-    bad_url = [
-        "www.cs.odu.edu/~mweigle/courses/cs532/pdfs.html",
-        "https://www.goolge.com",
-    ]
-    return (request(bad_url[0]), request(bad_url[1]))
+    return (
+        request("www.cs.odu.edu/~mweigle/courses/cs532/pdfs.html"),
+        request("https://www.goolge.com"),
+    )
 
 
 class TestFunctions:
