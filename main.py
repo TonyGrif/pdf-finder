@@ -24,7 +24,7 @@ def main():
 
     parser.add_argument("uri", type=str, help="The URI to be searched.")
     parser.add_argument(
-        "--debug", action="store_true", help="Enable DEBUG console output logs."
+        "--debug", "-d", action="store_true", help="Enable DEBUG console output logs."
     )
 
     args = parser.parse_args()
@@ -37,18 +37,18 @@ def main():
 
     if response is None:
         logging.debug("No response returned")
-        return
+        return -1
 
     pdfs = find_pdf(response)
     logging.debug("%s PDFs found", len(pdfs))
 
     if len(pdfs) == 0:
-        return
+        return -2
 
     for p in pdfs:
         print(p)
 
-    return
+    return 0
 
 
 if __name__ == "__main__":
