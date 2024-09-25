@@ -1,45 +1,39 @@
 import pytest
 
-from funcs import request, find_pdf
+from src.funcs import find_pdf, request
 
 
-@pytest.fixture
+@pytest.fixture()
 def good_response():
-    return (
-        request("https://www.cs.odu.edu/~mweigle/courses/cs532/pdfs.html"),
-        request(
-            "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
-        ),
-    )
+    return (request("https://www.cs.odu.edu/~mweigle/courses/cs532/pdfs.html"),)
 
 
 @pytest.fixture
-def bad_response():
+def bad_uris():
     return (
-        request("www.cs.odu.edu/~mweigle/courses/cs532/pdfs.html"),
-        request("https://www.goolge.com"),
+        "www.cs.odu.edu/~mweigle/courses/cs532/pdfs.html",
+        "https://www.goolge.com",
     )
 
 
 class TestFunctions:
-    def test_request(self, good_response, bad_response):
+    def test_request(self, pdf_res, good_response, bad_uris):
         assert good_response[0].status_code == 200
 
-        assert good_response[1].status_code == 200
-        assert good_response[1].headers["content-type"] == "application/pdf"
-        assert good_response[1].headers["content-length"] == "994153"
+        assert pdf_res.status_code == 200
+        assert pdf_res.headers["content-type"] == "application/pdf"
+        assert pdf_res.headers["content-length"] == "994153"
 
         # No value check
-        assert bad_response[0] is None
+        with pytest.raises(Exception):
+            request(bad_uris[0])
         # SSL error check
-        assert bad_response[1] is None
+        with pytest.raises(Exception):
+            request(bad_uris[1])
 
-    def test_pdf(self, good_response, bad_response):
+    def test_pdf(self, good_response):
         links = find_pdf(good_response[0])
         assert len(links) == 8
-
-        links = find_pdf(bad_response[0])
-        assert len(links) == 0
 
         url = "https://www.cs.odu.edu/~mweigle/"
         response = request(url)

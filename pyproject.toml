@@ -27,7 +27,7 @@ pylint = "^3.0.3"
 ruff = "^0.2.2"
 
 [tool.pytest.ini_options]
-pythonpath = "src"
+testpaths = ["tests"]
 log_cli = "True"
 
 [build-system]

@@ -1,16 +1,12 @@
 import pytest
 
-from pdf import PdfFile
-from funcs import request
+from src.funcs import request
+from src.pdf import PdfFile
 
 
 @pytest.fixture
-def pdf():
-    test_uri = (
-        "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
-    )
-    response = request(test_uri)
-    return PdfFile(response.headers["content-length"], test_uri, response.url)
+def pdf(pdf_uri, pdf_res):
+    return PdfFile(int(pdf_res.headers["content-length"]), pdf_uri, pdf_res.url)
 
 
 class TestPDF:
@@ -19,18 +15,20 @@ class TestPDF:
 
         test_uri = "http://www.cs.odu.edu/~mln/pubs/ipres-2018/ipres-2018-atkins-news-similarity.pdf"
         response = request(test_uri)
-        result = PdfFile(response.headers["content-length"], test_uri, response.url)
+        result = PdfFile(
+            int(response.headers["content-length"]), test_uri, response.url
+        )
         assert int(result.bytes) == 18995885
 
     def test_startURL(self, pdf):
         # Notice http instead of https
         assert (
             pdf.start_url
-            == "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
+            == "https://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
         )
         assert (
             pdf.start_url
-            != "https://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
+            != "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
         )
 
     def test_finalURI(self, pdf):
