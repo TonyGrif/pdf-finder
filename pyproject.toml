@@ -5,7 +5,7 @@ description = "A Python program to locate links to PDFs found within a webpage f
 authors = ["TonyGrif <TonyGriffin2000@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "src"}]
+packages = [{include = "finder"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"

@@ -7,7 +7,7 @@ from typing import List
 import requests
 from bs4 import BeautifulSoup
 
-from src.pdf import PdfFile
+from finder.pdf import PdfFile
 
 
 def request(uri_arg: str) -> requests.Response:

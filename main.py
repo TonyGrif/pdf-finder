@@ -11,7 +11,7 @@ This file can be run as `./main.py [-h] URI`.
 import argparse
 import logging
 
-from src.funcs import request, find_pdf
+from finder.funcs import request, find_pdf
 
 
 def main():

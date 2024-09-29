@@ -1,6 +1,6 @@
 import pytest
 
-from src.funcs import find_pdf, request
+from finder.funcs import find_pdf, request
 
 
 @pytest.fixture()
