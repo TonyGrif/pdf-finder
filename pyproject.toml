@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pdf-finder"
-version = "0.1.0"
+version = "0.9"
 description = "A Python program to locate links to PDFs found within a webpage from the command line"
 authors = ["TonyGrif <TonyGriffin2000@gmail.com>"]
 license = "MIT"
