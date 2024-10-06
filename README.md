@@ -1,20 +1,13 @@
 # PDF-Finder
 A Python program to locate links to PDFs found within a webpage from the command line.
 
-## Requirements
-* [Python 3.8+](https://www.python.org/)
-* [BeautifulSoup4](https://beautiful-soup-4.readthedocs.io/en/latest/)
+## Running with Docker
+First, build the image using `docker build -t pdf-finder`.
+Upon completion, run `docker run pdf-finder [URI]`.
 
-## Running Instructions
-Ensure required packages are available first through pip.
-```
-pip install -r requirements.txt
-```
-
-The program can then be run following the syntax below.
-```
-./main.py [URI]
-```
+## Running with Poetry
+Ensure required packages are available first through poetry using `poetry install`.
+The program can then be run following the syntax: `poetry run python main.py [URI]`.
 
 ## Sample Execution
 When run with `./main.py https://www.cs.odu.edu/~mweigle/courses/cs532/pdfs.html` the first
