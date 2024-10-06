@@ -2,7 +2,7 @@
 A Python program to locate links to PDFs found within a webpage from the command line.
 
 ## Running with Docker
-First, build the image using `docker build -t pdf-finder`.
+First, build the image using `docker build -t pdf-finder .`.
 Upon completion, run `docker run pdf-finder [URI]`.
 
 ## Running with Poetry
