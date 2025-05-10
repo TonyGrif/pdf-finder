@@ -14,6 +14,7 @@ pdf-finder = "finder.__main__:main"
 python = "^3.9"
 requests = "^2.31.0"
 beautifulsoup4 = "^4.12.3"
+loguru = "^0.7.3"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^8.0.1"
@@ -38,7 +39,7 @@ legacy_tox_ini = """
     [tox]
     requires =
         tox>=4
-    env_list = py{38, 39, 310, 311, 312}
+    env_list = py{39, 310, 311, 312, 313}
     isolated_build = true
 
     [testenv]

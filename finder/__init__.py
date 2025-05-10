@@ -1,4 +1,4 @@
-from .funcs import request, find_pdf
+from .funcs import find_pdf, request
 from .pdf import PdfFile
 
 __all__ = [

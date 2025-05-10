@@ -1,11 +1,10 @@
-"""This module contains functions for the pdf finder application.
-"""
+"""This module contains functions for the pdf finder application."""
 
-import logging
 from typing import List
 
 import requests
 from bs4 import BeautifulSoup
+from loguru import logger
 
 from finder.pdf import PdfFile
 
@@ -19,10 +18,10 @@ def request(uri_arg: str) -> requests.Response:
     Returns:
         An HTTP response object if a response was returned, None otherwise
     """
-    logging.debug("Request on %s", uri_arg)
+    logger.debug("Request on {}", uri_arg)
     response = requests.get(uri_arg, timeout=2.50)
     response.raise_for_status()
-    logging.debug("Response recieved from %s", uri_arg)
+    logger.debug("Response recieved from {}", uri_arg)
     return response
 
 
@@ -43,13 +42,13 @@ def find_pdf(response: requests.Response) -> List[PdfFile]:
         try:
             pdf_response: requests.Response = request(pdf)
         except Exception as e:
-            logging.debug("%s exception caught on %s", e, pdf)
+            logger.debug("{} exception caught on {}", e, pdf)
             continue
 
         pdfs.append(
             PdfFile(int(pdf_response.headers["content-length"]), pdf, pdf_response.url)
         )
-        logging.debug("New pdf created with %s", pdf_response.url)
+        logger.debug("New pdf created with {}", pdf_response.url)
 
     return pdfs
 
@@ -61,7 +60,7 @@ def _find_links(response: requests.Response) -> List[str]:
     links = []
     for pdf_links in soup.find_all("a", href=True):
         if pdf_links["href"].lower().endswith(".pdf"):
-            logging.debug("%s link added", pdf_links["href"])
+            logger.debug("{} link added", pdf_links["href"])
             links.append(pdf_links["href"])
 
     return list(set(links))

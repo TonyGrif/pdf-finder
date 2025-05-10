@@ -9,9 +9,11 @@ This file can be run as `./main.py [-h] URI`.
 """
 
 import argparse
-import logging
+import sys
 
-from finder.funcs import request, find_pdf
+from loguru import logger
+
+from finder.funcs import find_pdf, request
 
 
 def main():
@@ -28,19 +30,20 @@ def main():
     )
 
     args = parser.parse_args()
+    logger.remove()
     if args.debug is True:
-        logging.basicConfig(level=logging.DEBUG)
+        logger.add(sys.stdout, level="DEBUG")
 
-    logging.debug("URI Provided: %s", args.uri)
+    logger.debug("URI Provided: {}", args.uri)
 
     response = request(args.uri)
 
     if response is None:
-        logging.debug("No response returned")
+        logger.debug("No response returned")
         return -1
 
     pdfs = find_pdf(response)
-    logging.debug("%s PDFs found", len(pdfs))
+    logger.debug("{} PDFs found", len(pdfs))
 
     if len(pdfs) == 0:
         return -2
