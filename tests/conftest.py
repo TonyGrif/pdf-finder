@@ -1,6 +1,6 @@
 import pytest
 
-from finder.funcs import request
+from finder import request
 
 
 @pytest.fixture(scope="session")

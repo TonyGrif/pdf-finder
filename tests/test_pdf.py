@@ -1,7 +1,7 @@
 import pytest
 
-from finder.funcs import request
-from finder.pdf import PdfFile
+from finder import request
+from finder import PdfFile
 
 
 @pytest.fixture
