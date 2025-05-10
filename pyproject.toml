@@ -7,6 +7,9 @@ license = "MIT"
 readme = "README.md"
 packages = [{include = "finder"}]
 
+[tool.poetry.scripts]
+pdf-finder = "finder.__main__:main"
+
 [tool.poetry.dependencies]
 python = "^3.8"
 requests = "^2.31.0"
