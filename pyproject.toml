@@ -11,7 +11,7 @@ packages = [{include = "finder"}]
 pdf-finder = "finder.__main__:main"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.9"
 requests = "^2.31.0"
 beautifulsoup4 = "^4.12.3"
 
