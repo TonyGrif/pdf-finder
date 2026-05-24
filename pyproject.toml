@@ -52,6 +52,18 @@ legacy_tox_ini = """
         poetry run pytest --cov
 """
 
+[tool.ruff]
+line-length = 88
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
+[tool.mypy]
+python_version = "3.9"
+strict = true
+exclude = ["tests/"]
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

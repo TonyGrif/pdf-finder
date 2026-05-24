@@ -7,10 +7,10 @@ Upon completion, the application is ready to run via `docker run tonygrif/pdf-fi
 
 ## Running with Poetry
 Ensure required packages are available first through poetry using `poetry install`.
-The program can then be run following the syntax: `poetry run python main.py [URI]`.
+The program can then be run following the syntax: `poetry run pdf-finder [URI]`.
 
 ## Sample Execution
-When run with `./main.py https://www.cs.odu.edu/~mweigle/courses/cs532/pdfs.html` the first
+When run with `pdf-finder https://www.cs.odu.edu/~mweigle/courses/cs532/pdfs.html` the first
 two PDFs will output:
 ```
 URI: http://www.cs.odu.edu/~mln/pubs/ipres-2018/ipres-2018-jones-archiveit.pdf
