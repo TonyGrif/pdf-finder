@@ -5,14 +5,12 @@ from dataclasses import dataclass
 
 @dataclass
 class PdfFile:
-    """
-    PDF object responsible for storing the starting & final URLs
-    and the number of bytes the PDF is.
+    """PDF object storing the starting & final URLs and byte size.
 
     Attributes:
-        bytes (int): number of bytes the document is.
-        start_url (str): starting URL for this document.
-        final_uri (str): final URI for this document post any redirects.
+        bytes: Number of bytes the document is.
+        start_url: Starting URL for this document.
+        final_uri: Final URI for this document post any redirects.
     """
 
     bytes: int
@@ -20,11 +18,10 @@ class PdfFile:
     final_uri: str
 
     def __str__(self) -> str:
-        """
-        Return a string representation of this PDF.
+        """Return a string representation of this PDF.
 
         Returns:
-            string (str): The string representation.
+            The formatted URI, final URI, and content length.
         """
         return f"""
         URI: {self.start_url}

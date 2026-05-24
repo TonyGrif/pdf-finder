@@ -5,19 +5,27 @@
 This program scrapes an inputted URI and locates any PDFs found within.
 The PDFs are taken in for analysis and then output for the user.
 
-This file can be run as `./main.py [-h] URI`.
+This file can be run as `pdf-finder [-h] URI`.
 """
 
 import argparse
 import sys
 
+import requests
 from loguru import logger
 
 from finder.funcs import find_pdf, request
 
 
-def main():
-    """Main driver for the pdf-finder program."""
+def main(argv: list[str] | None = None) -> int:
+    """Main driver for the pdf-finder program.
+
+    Args:
+        argv: Argument list to parse. Defaults to sys.argv when None.
+
+    Returns:
+        0 on success, -1 if the URI request fails, -2 if no PDFs are found.
+    """
     parser = argparse.ArgumentParser(
         prog="PDF Finder",
         description="Scrapes PDF data from a URI.",
@@ -29,17 +37,17 @@ def main():
         "--debug", "-d", action="store_true", help="Enable DEBUG console output logs."
     )
 
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     logger.remove()
     if args.debug is True:
         logger.add(sys.stdout, level="DEBUG")
 
     logger.debug("URI Provided: {}", args.uri)
 
-    response = request(args.uri)
-
-    if response is None:
-        logger.debug("No response returned")
+    try:
+        response = request(args.uri)
+    except requests.RequestException as e:
+        logger.error("Failed to retrieve {}: {}", args.uri, e)
         return -1
 
     pdfs = find_pdf(response)

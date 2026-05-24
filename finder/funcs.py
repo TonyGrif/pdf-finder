@@ -1,7 +1,5 @@
 """This module contains functions for the pdf finder application."""
 
-from typing import List
-
 import requests
 from bs4 import BeautifulSoup
 from loguru import logger
@@ -9,28 +7,38 @@ from loguru import logger
 from finder.pdf import PdfFile
 
 
-def request(uri_arg: str) -> requests.Response:
+def request(
+    uri_arg: str, connect_timeout: float = 5, read_timeout: float = 30
+) -> requests.Response:
     """Request a HTTP response from a URI.
 
     Args:
-        uri_arg (str): string representation of the URI requesting
+        uri_arg: String representation of the URI to request.
+        connect_timeout: Seconds to wait for connection. Defaults to 5.
+        read_timeout: Seconds to wait between data chunks. Defaults to 30.
+            Response body is streamed lazily; callers that need it must access response.content.
 
     Returns:
-        An HTTP response object if a response was returned, None otherwise
+        An HTTP response object.
+
+    Raises:
+        requests.RequestException: If the request fails or returns an error status.
     """
     logger.debug("Request on {}", uri_arg)
-    response = requests.get(uri_arg, timeout=2.50)
+    response = requests.get(
+        uri_arg, timeout=(connect_timeout, read_timeout), stream=True
+    )
     response.raise_for_status()
-    logger.debug("Response recieved from {}", uri_arg)
+    logger.debug("Response received from {}", uri_arg)
     return response
 
 
-def find_pdf(response: requests.Response) -> List[PdfFile]:
+def find_pdf(response: requests.Response) -> list[PdfFile]:
     """Locate the PDFs in a HTTP response and create a new PDF object with the
-    information aquired.
+    information acquired.
 
     Args:
-        response (requests.Response): HTTP response object.
+        response: HTTP response object to search for PDF links.
 
     Returns:
         A collection of PDF objects found within the response.
@@ -41,20 +49,31 @@ def find_pdf(response: requests.Response) -> List[PdfFile]:
     for pdf in links:
         try:
             pdf_response: requests.Response = request(pdf)
-        except Exception as e:
+        except requests.RequestException as e:
             logger.debug("{} exception caught on {}", e, pdf)
             continue
 
         pdfs.append(
-            PdfFile(int(pdf_response.headers["content-length"]), pdf, pdf_response.url)
+            PdfFile(
+                int(pdf_response.headers.get("content-length", 0)),
+                pdf,
+                pdf_response.url,
+            )
         )
         logger.debug("New pdf created with {}", pdf_response.url)
 
     return pdfs
 
 
-def _find_links(response: requests.Response) -> List[str]:
-    """Return the links found within a response"""
+def _find_links(response: requests.Response) -> list[str]:
+    """Return the deduplicated PDF links found within a response.
+
+    Args:
+        response: HTTP response object to parse for links.
+
+    Returns:
+        A deduplicated list of URLs ending in .pdf.
+    """
     soup = BeautifulSoup(response.content, "html.parser")
 
     links = []

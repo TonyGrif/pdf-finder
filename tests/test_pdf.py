@@ -5,21 +5,21 @@ from finder import PdfFile, request
 
 @pytest.fixture
 def pdf(pdf_uri, pdf_res):
-    return PdfFile(int(pdf_res.headers["content-length"]), pdf_uri, pdf_res.url)
+    return PdfFile(int(pdf_res.headers.get("content-length", 0)), pdf_uri, pdf_res.url)
 
 
 class TestPDF:
     def test_bytes(self, pdf):
-        assert int(pdf.bytes) == 994153
+        assert pdf.bytes == 994153
 
         test_uri = "http://www.cs.odu.edu/~mln/pubs/ipres-2018/ipres-2018-atkins-news-similarity.pdf"
         response = request(test_uri)
         result = PdfFile(
-            int(response.headers["content-length"]), test_uri, response.url
+            int(response.headers.get("content-length", 0)), test_uri, response.url
         )
-        assert int(result.bytes) == 18995885
+        assert result.bytes == 18995885
 
-    def test_startURL(self, pdf):
+    def test_start_url(self, pdf):
         # Notice http instead of https
         assert (
             pdf.start_url
@@ -30,7 +30,7 @@ class TestPDF:
             != "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
         )
 
-    def test_finalURI(self, pdf):
+    def test_final_uri(self, pdf):
         # Notice https instead of http
         assert (
             pdf.final_uri
@@ -42,12 +42,11 @@ class TestPDF:
         )
 
     def test_str(self, pdf):
-        str_result = str(pdf.__str__)
+        str_result = str(pdf)
 
-        assert str_result.find("994153")
-        assert str_result.find(
+        assert "994153" in str_result
+        assert (
             "https://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
+            in str_result
         )
-        assert str_result.find(
-            "http://www.cs.odu.edu/~mln/pubs/ht-2018/hypertext-2018-nwala-bootstrapping.pdf"
-        )
+        assert "Final URI:" in str_result

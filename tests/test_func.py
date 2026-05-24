@@ -5,7 +5,7 @@ from finder import find_pdf, request
 
 @pytest.fixture()
 def good_response():
-    return (request("https://www.cs.odu.edu/~mweigle/courses/cs532/pdfs.html"),)
+    return request("https://www.cs.odu.edu/~mweigle/courses/cs532/pdfs.html")
 
 
 @pytest.fixture
@@ -16,9 +16,24 @@ def bad_uris():
     )
 
 
+class TestFindLinks:
+    def test_finds_pdf_links(self, good_response):
+        links = find_pdf(good_response)
+        assert len(links) > 0
+
+    def test_filters_non_pdf_links(self, good_response):
+        links = find_pdf(good_response)
+        assert all(link.start_url.lower().endswith(".pdf") for link in links)
+
+    def test_deduplicates_links(self, good_response):
+        links = find_pdf(good_response)
+        urls = [link.start_url for link in links]
+        assert len(urls) == len(set(urls))
+
+
 class TestFunctions:
     def test_request(self, pdf_res, good_response, bad_uris):
-        assert good_response[0].status_code == 200
+        assert good_response.status_code == 200
 
         assert pdf_res.status_code == 200
         assert pdf_res.headers["content-type"] == "application/pdf"
@@ -32,7 +47,7 @@ class TestFunctions:
             request(bad_uris[1])
 
     def test_pdf(self, good_response):
-        links = find_pdf(good_response[0])
+        links = find_pdf(good_response)
         assert len(links) == 8
 
         url = "https://www.cs.odu.edu/~mweigle/"
