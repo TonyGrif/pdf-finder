@@ -4,7 +4,6 @@ COPY pyproject.toml .
 COPY poetry.lock .
 COPY finder/ finder/
 
-RUN pip install "poetry>=1.8,<2.0"
-RUN poetry install --only main
+RUN pip install "poetry>=1.8,<2.0" && poetry install --only main
 
-ENTRYPOINT [ "poetry", "run", "pdf-finder" ]
+ENTRYPOINT [ "poetry", "run", "python", "-m", "finder" ]
