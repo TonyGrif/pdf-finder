@@ -16,7 +16,6 @@ def request(
         uri_arg: String representation of the URI to request.
         connect_timeout: Seconds to wait for connection. Defaults to 5.
         read_timeout: Seconds to wait between data chunks. Defaults to 30.
-            Response body is streamed lazily; callers that need it must access response.content.
 
     Returns:
         An HTTP response object.
@@ -72,7 +71,7 @@ def _find_links(response: requests.Response) -> list[str]:
         response: HTTP response object to parse for links.
 
     Returns:
-        A deduplicated list of URLs ending in .pdf.
+        A deduplicated list of URLs ending in `.pdf`.
     """
     soup = BeautifulSoup(response.content, "html.parser")
 
